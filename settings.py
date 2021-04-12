@@ -1,12 +1,74 @@
 from os import environ
 
 SESSION_CONFIGS = [
+    dict(
+        name = 'REItest',
+        display_name = 'CA Tests',
+        num_demo_participants = 1,
+        app_sequence = ['REItest', 'BDMauction', 'choice_practice', 'cognitivenoise'],
+        endowment = 25,
+        exchange = 5,
+        prolificurl = 'http://www.google.com',
+    ),
+
+    dict(
+        name = 'BDMauction',
+        display_name = 'Preference Elicitation in Cognitive Noise Study',
+        num_demo_participants = 1,
+        # app_sequence = ['BDMauction', 'choice_practice', 'cognitivenoise'],
+        app_sequence = ['BDMauction', 'cognitivenoise'],
+    ),
+
+    dict(
+        name = 'choice_practice',
+        display_name = 'Practice Session for the Binary Choices',
+        num_demo_participants = 1,
+        app_sequence = ['choice_practice', 'cognitivenoise'],
+    ),
+
+    dict(
+        name = 'cognitivenoise',
+        display_name = 'Decision Task in Cognitive Noise Study',
+        num_demo_participants = 1,
+        app_sequence = ['cognitivenoise'],
+    )
+
+
     # dict(
     #    name='public_goods',
     #    display_name="Public Goods",
     #    num_demo_participants=3,
     #    app_sequence=['public_goods', 'payment_info']
     # ),
+
+    # {
+    #     'name': 'REItest',
+    #     'display_name': 'CA Tests',
+    #     'num_demo_participants': 1,
+    #     'app_sequence': ['REItest', 'BDMauction', 'choice_practice', 'cognitivenoise'],
+    #     'endowment': 25,
+    #     'exchange': 5,
+    #     'prolificurl': 'http://www.google.com',
+    # },
+    # {
+    #     'name': 'BDMauction',
+    #     'display_name': 'Preference Elicitation in Cognitive Noise Study',
+    #     'num_demo_participants': 1,
+    #     # 'app_sequence': ['BDMauction', 'choice_practice', 'cognitivenoise'],
+    #     'app_sequence': ['BDMauction', 'cognitivenoise'],
+    # },
+    # {
+    #     'name': 'choice_practice',
+    #     'display_name': 'Practice Session for the Binary Choices',
+    #     'num_demo_participants': 1,
+    #     'app_sequence': ['choice_practice', 'cognitivenoise'],
+    # },
+    # {
+    #     'name': 'cognitivenoise',
+    #     'display_name': 'Decision Task in Cognitive Noise Study',
+    #     'num_demo_participants': 1,
+    #     'app_sequence': ['cognitivenoise'],
+    # },
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
@@ -23,15 +85,36 @@ SESSION_CONFIG_DEFAULTS = dict(
 LANGUAGE_CODE = 'en'
 
 # e.g. EUR, GBP, CNY, JPY
-REAL_WORLD_CURRENCY_CODE = 'USD'
+REAL_WORLD_CURRENCY_CODE = 'GBP'
 USE_POINTS = True
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable
 ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
 
-DEMO_PAGE_INTRO_HTML = """ """
+# It looks like "DEMO_PAGE_INTRO_HTML" used to be named as "DEMO_PAGE_INTRO_TEXT"
+DEMO_PAGE_INTRO_HTML = """
+<ul>
+    <li>
+        <a href="https://github.com/oTree-org/otree" target="_blank">
+            oTree on GitHub
+        </a>.
+    </li>
+    <li>
+        <a href="http://www.otree.org/" target="_blank">
+            oTree homepage
+        </a>.
+    </li>
+</ul>
+<p>
+    Here are various games implemented with oTree. These games are all open
+    source, and you can modify them as you wish.
+</p>
+"""
 
+""
+
+# don't share this with anybody.
 SECRET_KEY = 'mvw&oo=*hxo!s9qc6(u7eni9d6&a8$dx(gaz!t20ynj8!v%^8a'
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
