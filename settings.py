@@ -1,6 +1,14 @@
 from os import environ
 
 SESSION_CONFIGS = [
+
+    dict(
+        name = 'ECI_survey',
+        display_name = 'Emotional and Cognitive Ability Survey',
+        num_demo_participants = 5,
+        app_sequence = ['ECI_survey'],
+    ),
+
     dict(
         name = 'REItest',
         display_name = 'CA Tests',
@@ -41,34 +49,6 @@ SESSION_CONFIGS = [
     #    app_sequence=['public_goods', 'payment_info']
     # ),
 
-    # {
-    #     'name': 'REItest',
-    #     'display_name': 'CA Tests',
-    #     'num_demo_participants': 1,
-    #     'app_sequence': ['REItest', 'BDMauction', 'choice_practice', 'cognitivenoise'],
-    #     'endowment': 25,
-    #     'exchange': 5,
-    #     'prolificurl': 'http://www.google.com',
-    # },
-    # {
-    #     'name': 'BDMauction',
-    #     'display_name': 'Preference Elicitation in Cognitive Noise Study',
-    #     'num_demo_participants': 1,
-    #     # 'app_sequence': ['BDMauction', 'choice_practice', 'cognitivenoise'],
-    #     'app_sequence': ['BDMauction', 'cognitivenoise'],
-    # },
-    # {
-    #     'name': 'choice_practice',
-    #     'display_name': 'Practice Session for the Binary Choices',
-    #     'num_demo_participants': 1,
-    #     'app_sequence': ['choice_practice', 'cognitivenoise'],
-    # },
-    # {
-    #     'name': 'cognitivenoise',
-    #     'display_name': 'Decision Task in Cognitive Noise Study',
-    #     'num_demo_participants': 1,
-    #     'app_sequence': ['cognitivenoise'],
-    # },
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs

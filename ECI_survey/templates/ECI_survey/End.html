@@ -1,0 +1,24 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+Part A：End
+{% endblock %}
+
+{% block content %}
+<h1 style="font-size: 35px;">Part A</h1>
+
+<br>
+<p>Now you have completed the Part A, click the button below to proceed to the Part B.</p>
+
+<br>
+{% next_button %}
+
+<style>
+.otree-title {
+  font-size: 0;
+}
+
+</style>
+
+{% endblock %}
