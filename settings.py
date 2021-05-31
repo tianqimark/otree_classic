@@ -7,6 +7,15 @@ SESSION_CONFIGS = [
         display_name = 'Emotional and Cognitive Ability Survey',
         num_demo_participants = 5,
         app_sequence = ['ECI_survey'],
+        # prolificurl = 'http://www.google.com'
+    ),
+
+    dict(
+        name = 'even_gamble',
+        display_name = 'Even Gamble Game',
+        num_demo_participants = 5,
+        app_sequence = ['even_gamble'],
+        prolificurl = 'http://www.google.com'
     ),
 
     dict(

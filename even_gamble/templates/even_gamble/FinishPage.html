@@ -1,0 +1,36 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+Your Payment
+
+{% endblock %}
+
+{% block content %}
+<h1 style="font-size: 35px;">This is the end of the experiment</h1>
+
+<div>
+<h4>For your payment from the Part 2:</h4>
+
+<p>www <br>www <br>www</p>
+
+
+<div>
+<p>Thank you for your participation! Please click the link below to move back to Prolific Academic and receive your payment.</p>
+<p><a href=" {{ prolificurl }} ">Click here</a></p>
+</div>
+
+
+<!-- <br>
+<button class="btn btn-primary btn-large">
+  Please give us some feedback
+</button> -->
+
+<style>
+.otree-title {
+  font-size: 0;
+}
+
+</style>
+
+{% endblock %}
