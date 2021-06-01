@@ -49,10 +49,9 @@ class DecisionPage(Page):
         return {
             'gain': "+" + str(gain),
             'loss': "–" + str(loss),
+            'display': display,
 
-            'confirm_time': confirm_time,
-
-            # 'display': display,
+            'confirm_time': confirm_time
         }
 
     def before_next_page(self):
@@ -67,7 +66,7 @@ class DecisionPage(Page):
             pass
 
 # Specify information about the resting page:
-rest_round = [3] # for testing during development
+rest_round = [10] # for testing during development
 # rest_round = [50, 100, 150] # In actual experiment rest after trial 50, 100 and 150
 rest_limit = 300 # seconds
 

@@ -28,6 +28,9 @@ def set_time():
 def gamble_generator(start, end, seed):
     values = list(range(start, end + 1))
 
+    for i in range(len(values)):
+        values[i] *= 10
+
     gamble_list = []
 
     for gain in values:
@@ -44,11 +47,10 @@ def gamble_generator(start, end, seed):
     return gamble_table
 
 
-
 class Constants(BaseConstants):
     name_in_url = 'even_gamble'
     players_per_group = None
-    num_rounds = 5 # Activate this line in development
+    num_rounds = 20 # Activate this line in development
 
     # num_rounds = 200 # Activate this line when launching the actual experiment
 
