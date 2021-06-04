@@ -11,6 +11,13 @@ SESSION_CONFIGS = [
     ),
 
     dict(
+        name = 'even_gamble_practice',
+        display_name = 'Even Gamble Game Instruction',
+        num_demo_participants = 5,
+        app_sequence = ['even_gamble_practice'],
+    ),
+
+    dict(
         name = 'even_gamble',
         display_name = 'Even Gamble Game',
         num_demo_participants = 5,

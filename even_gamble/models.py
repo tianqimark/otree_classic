@@ -56,8 +56,11 @@ class Constants(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-    pass
-
+    def creating_session(self):
+        if self.round_number == 1:
+             for p in self.get_players():
+                 p.participant.vars['seed2'] = np.random.randint(low = 1000, high = 10000000)
+                 
 
 class Group(BaseGroup):
     pass

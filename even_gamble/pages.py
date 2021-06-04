@@ -31,9 +31,11 @@ class DecisionPage(Page):
 
     def vars_for_template(self):
 
+        # In the actual experiment, start = 1 and end = 10
         start = 1
         end = 5
-        seed = 666888
+        # seed = 666888
+        seed = self.participant.vars['seed2']
 
         trial_table =  gamble_generator(start = start, end = end, seed = seed)
 

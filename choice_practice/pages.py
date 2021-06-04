@@ -12,10 +12,11 @@ class Instructions(Page):
 
     def vars_for_template(self):
 
-        endowment = self.session.vars['endowment']
-        pound = endowment / self.session.vars['exchange']
-        # endowment = 25
-        # pound = endowment / 5
+        # endowment = self.session.vars['endowment']
+        # pound = endowment / self.session.vars['exchange']
+
+        endowment = 25 # set for convenience during the development
+        pound = endowment / 5
 
         if pound.is_integer():
             pound = int(pound)
