@@ -6,9 +6,14 @@ from .models import Constants
 class Instructions(Page):
     pass
 
+class CheckPage1(Page):
+    pass
 
 class Results(Page):
     pass
 
 
-page_sequence = [Instructions, Results]
+page_sequence = [
+Instructions,
+# CheckPage1, 
+Results]

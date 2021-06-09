@@ -6,8 +6,8 @@ SESSION_CONFIGS = [
         name = 'ECI_survey',
         display_name = 'Emotional and Cognitive Ability Survey',
         num_demo_participants = 5,
-        app_sequence = ['ECI_survey'],
-        # prolificurl = 'http://www.google.com'
+        app_sequence = ['ECI_survey', 'even_gamble_practice', 'even_gamble'],
+        prolificurl = 'http://www.google.com'
     ),
 
     dict(

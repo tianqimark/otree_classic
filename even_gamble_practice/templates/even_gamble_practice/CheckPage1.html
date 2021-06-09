@@ -1,0 +1,130 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+Part 2: Check-up Questions
+{% endblock %}
+
+{% block content %}
+<h1 style="font-size: 35px;">Part 2: Check-up Questions (1 / 2)</h1>
+
+<body>
+
+  <article class="figure">
+    <section>
+      <article class="box_left" id="option_left">
+
+        <div class="gamble_div_left">
+          <p class = "gamble_txt"> –35 </p>
+        </div>
+
+      </article>
+
+      <article class="box_right" id="option_right">
+
+        <div class="gamble_div_right">
+          <p class = "gamble_txt"> +75 </div>
+
+      </article>
+    </section>
+  </article>
+
+  <article class="text">
+    <br>
+    <h5>For the gamble shown in the figure:</h5>
+    <!-- <p>For the lottery shown in the Figure 2:</p> -->
+    <!-- <br> -->
+    {% formfield player.cq_l1 with label="1. What is the probability of winning the lottery?" %}
+
+    {% formfield player.cq_l2 with label="2. What is the probability of losing the lottery?" %}
+
+    {% formfield player.cq_l3 with label="3. What is the reward of this lottery in case of winning?" %}
+
+
+    <br>
+
+    <button class="btn btn-primary btn-large">
+      Next
+    </button>
+
+  </article>
+
+</body>
+
+
+<style type="text/css">
+
+  .otree-title {
+    font-size: 0;
+  }
+
+  /* h4 {
+    text-decoration: underline;
+  } */
+
+  .text {
+    float: right;
+    width: 70%;
+    padding: 20px;
+  }
+
+  .figure {
+    float: right;
+    width: 30%;
+    padding: 20px;
+
+    position: relative;
+    top: 60px;
+  }
+
+  section {
+    padding: 20px;
+    vertical-align: middle;
+    height: 300px;
+    background-color: black;
+
+    /* the transparent border is not necessary in the current study */
+    /* box-sizing: border-box;
+    border: 5px solid transparent; */
+  }
+
+  section p {
+    color: white;
+  }
+
+  .box_left {
+    float: left;
+    width: 40%;
+
+    /* background-color: red; */
+  }
+
+  .box_right {
+    float: right;
+    width: 40%;
+
+    /* background-color: blue; */
+  }
+
+  .gamble_div_left {
+    text-align: right;
+    margin: 0 auto;
+  }
+
+  .gamble_div_right {
+    text-align: left;
+    margin: 0 auto;
+  }
+
+  .gamble_txt {
+    /* font-family: "Times New Roman", Times, serif; */
+    font-weight: 300;
+    font-size: 80px;
+    position: relative;
+    top: 66px;
+  }
+
+</style>
+
+
+{% endblock %}
