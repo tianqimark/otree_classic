@@ -79,22 +79,6 @@ Decision Page
     document.getElementById('id_jsdectime_start').value = d.getTime();
   }
 
-  // disable the default functions of the arrows and space
-  // the standard code (For most browsers):
-  window.addEventListener("keydown", function(e) {
-      if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
-          e.preventDefault();
-      }
-  }, false);
-
-  // // Deprecated code! (to support older browsers such as the IE)
-  // window.addEventListener("keydown", function(e) {
-  //     // space and arrow keys
-  //     if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
-  //         e.preventDefault();
-  //     }
-  // }, false);
-
   // record choice and end time, show confirmation sign and submit the form
   document.addEventListener('keydown', function(event) {
     var d = new Date();
@@ -144,6 +128,7 @@ Decision Page
 
   body {
     background-color: black;
+    overflow: hidden; /* Hide scrollbars */
   }
 
   /* Clear floats after the columns */

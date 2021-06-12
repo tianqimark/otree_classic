@@ -7,7 +7,12 @@ class Instructions(Page):
     pass
 
 class CheckPage1(Page):
-    pass
+    form_model = 'player'
+    form_fields = ['cq1_1', 'cq1_2', 'cq1_3', 'cq1_4', 'cq1_5']
+
+class CheckPage2(Page):
+    form_model = 'player'
+    form_fields = ['cq2_1', 'cq2_2', 'cq2_3']
 
 class Results(Page):
     pass
@@ -15,5 +20,6 @@ class Results(Page):
 
 page_sequence = [
 Instructions,
-# CheckPage1, 
+CheckPage1,
+CheckPage2,
 Results]

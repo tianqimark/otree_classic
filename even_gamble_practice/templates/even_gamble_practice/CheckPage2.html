@@ -6,7 +6,9 @@ Part 2: Check-up Questions
 {% endblock %}
 
 {% block content %}
-<h1 style="font-size: 35px;">Part 2: Check-up Questions (1 / 2)</h1>
+<h1 style="font-size: 35px;">Part 2: Check-up Questions (2 / 2)</h1>
+
+<h5>Imagine that you are given an initial fund of 100 experiment points and you are asked to decide whether to aceept risky gambles in a series of trials. In the end, the gamble shown in the figure is selected to count for your final payment, then:</h5>
 
 <body>
 
@@ -15,7 +17,7 @@ Part 2: Check-up Questions
       <article class="box_left" id="option_left">
 
         <div class="gamble_div_left">
-          <p class = "gamble_txt"> –40 </p>
+          <p class = "gamble_txt"> +70 </p>
         </div>
 
       </article>
@@ -23,26 +25,23 @@ Part 2: Check-up Questions
       <article class="box_right" id="option_right">
 
         <div class="gamble_div_right">
-          <p class = "gamble_txt"> +25 </div>
+          <p class = "gamble_txt"> –35 </div>
 
       </article>
     </section>
   </article>
 
   <article class="text">
-    <br>
-    <h5>For the gamble shown in the figure:</h5>
+    <!-- <br> -->
+    <!-- <h5>Imagine that you are given an initial fund of 100 experiment points and you are asked to decide whether to aceept risky gambles in a series of trials. In the end, the gamble shown in the figure is selected to count for your final payment, then:</h5> -->
     <!-- <p>For the lottery shown in the Figure 2:</p> -->
     <!-- <br> -->
-    {% formfield player.cq1_1 with label="1. What is the reward in case of winning?" %}
+    {% formfield player.cq2_1 with label="1. If you chose to reject this gamble, what is your final payment?" %}
 
-    {% formfield player.cq1_2 with label="2. What is the loss in case of losing?" %}
+    {% formfield player.cq2_2 with label="2. If you chose to accept this gamble and you lose, what is your final payment?" %}
 
-    {% formfield player.cq1_3 with label="3. What is the probability of winning and losing this gamble, respectively?" %}
+    {% formfield player.cq2_3 with label="3. If you chose to accept this gamble and you win, what is your final payment?" %}
 
-    {% formfield player.cq1_4 with label="4. How do you accept this gamble?" %}
-
-    {% formfield player.cq1_5 with label="5. How do you reject this gamble?" %}
 
     <br>
 
@@ -81,7 +80,7 @@ Part 2: Check-up Questions
     padding: 10px;
 
     position: relative;
-    top: 60px;
+    top: 15px;
   }
 
   section {
