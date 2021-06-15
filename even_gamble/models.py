@@ -51,7 +51,6 @@ class Constants(BaseConstants):
     name_in_url = 'even_gamble'
     players_per_group = None
     num_rounds = 20 # Activate this line in development
-
     # num_rounds = 200 # Activate this line when launching the actual experiment
 
 
@@ -60,7 +59,7 @@ class Subsession(BaseSubsession):
         if self.round_number == 1:
              for p in self.get_players():
                  p.participant.vars['seed2'] = np.random.randint(low = 1000, high = 10000000)
-                 
+
 
 class Group(BaseGroup):
     pass
@@ -86,11 +85,9 @@ class Player(BasePlayer):
     # Whether the gamble is accepted: 1 = yes, 0 = no
     accept = models.IntegerField()
 
-
     # Payoff outcome
-    payoff_ddm = models.LongStringField()
+    pay_info = models.LongStringField()
     pay_pound = models.FloatField()
-
 
 
     # To collect feedback from pilot

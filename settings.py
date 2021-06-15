@@ -14,7 +14,8 @@ SESSION_CONFIGS = [
         name = 'even_gamble_practice',
         display_name = 'Even Gamble Game Instruction',
         num_demo_participants = 5,
-        app_sequence = ['even_gamble_practice'],
+        app_sequence = ['even_gamble_practice', 'even_gamble'],
+        prolificurl = 'http://www.google.com'
     ),
 
     dict(

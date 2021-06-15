@@ -19,11 +19,6 @@ class FixationPage(Page):
         self.player.pydectime = set_time() # here we set the start of the dectime in unix seconds
 
 
-confirm_time = 500 # confirmation time shown in ms
-# Currently the display of the confirmation signs is realised by using the setTimeout function
-# in the JavaScript. However, this seems to affect the time recording.
-# It is more reliable to use an "afterpage" aswas don in the first study.
-
 class DecisionPage(Page):
 
     form_model = 'player'
@@ -33,7 +28,7 @@ class DecisionPage(Page):
 
         # In the actual experiment, start = 1 and end = 10
         start = 1
-        end = 5
+        end = 10
         # seed = 666888
         seed = self.participant.vars['seed2']
 
@@ -52,24 +47,47 @@ class DecisionPage(Page):
             'gain': "+" + str(gain),
             'loss': "–" + str(loss),
             'display': display,
-
-            'confirm_time': confirm_time
         }
 
     def before_next_page(self):
         # Python Method of dectime collection:
-        self.player.pydectime = set_time() - self.player.pydectime - (confirm_time /1000)
+        self.player.pydectime = set_time() - self.player.pydectime
         # JavaScript Method of dectime collection:
         self.player.jsdectime = (self.player.jsdectime_end - self.player.jsdectime_start) / 1000
 
+
+class AfterPage(Page):
+    # This AfterPage is used to display the confirmation animation, and to make the environment for Python time recording as simple as possible.
+
+    timeout_seconds = 0.5
+
+    def vars_for_template(self):
+
+        # reading the information about the current trial
+        gain = int(self.player.gain)
+        loss = int(self.player.loss)
+        display = self.player.display
+
+        accept = self.player.accept
+
+        return {
+            'gain': "+" + str(gain),
+            'loss': "–" + str(loss),
+            'display': display,
+
+            'accept': accept
+        }
+
+    def before_next_page(self):
         if self.round_number in rest_round:
             self.player.pyresttime = set_time()
         else:
             pass
 
-# Specify information about the resting page:
+# Specify information about the rest page:
 rest_round = [10] # for testing during development
 # rest_round = [50, 100, 150] # In actual experiment rest after trial 50, 100 and 150
+
 rest_limit = 300 # seconds
 
 class RestPage(Page):
@@ -111,8 +129,76 @@ class FinishPage(Page):
 
     def vars_for_template(self):
 
+        # Otherwise a participant can refresh the page to get desired outcome
+        seed = self.participant.vars['seed2']
+        np.random.seed(seed)
+
+        # initial fund and exchange rate
+        endowment = 100 # 100 experiment points given at the beginning
+        exchange = 20 # 20 points = 1£
+
+        # pick a round to count for the final payment:
+        pick_round = np.random.choice(range(1, Constants.num_rounds +1))
+
+        gain = int(self.player.in_round(pick_round).gain)
+        loss = int(self.player.in_round(pick_round).loss)
+
+        win = np.random.randint(2) # 0 or 1
+
+        # payment if the gamble is accepted
+        if win == True:
+            pay_point = endowment + gain
+            pay_pound = round(pay_point / exchange, 2)
+        else:
+            pay_point = endowment - loss
+            pay_pound = round(pay_point / exchange, 2)
+
+        # payment if the gamble is rejected
+        accept = self.player.in_round(pick_round).accept
+        if not accept:
+            pay_point = endowment
+            pay_pound = round(endowment / exchange,2)
+
+        # record all the information about the picked trial
+        pay_info = {"endowment": endowment, "exchange": exchange, "pick_round": pick_round, "gain": gain, "loss": loss, "accept": accept, "win": win, "pay_point": pay_point, "pay_pound": pay_pound}
+
+        # record the payoff info
+        self.player.pay_info = str(pay_info)
+        self.player.pay_pound = pay_pound
+
+        # for display, make pay_pound an integer if it is an interger
+        if pay_pound.is_integer():
+            pay_pound = int(pay_pound)
+
+        # scenario verdict
+        if accept == False:
+            scenario = 1
+            # the gamble is rejected
+
+        if accept == True and win == False:
+            scenario = 2
+            # accept and lose the gamble
+
+        if accept == True and win == True:
+            scenario = 3
+            # accept and win the gamble
+
         return {
+
+            'scenario': scenario,
+
+            'endowment': endowment,
+            'pick_round': pick_round,
+
+            'gain': gain,
+            'loss': loss,
+            'accept': accept,
+
+            'pay_point': pay_point,
+            'pay_pound': pay_pound,
+
             'prolificurl': self.session.config['prolificurl']
+            # 'prolificurl': 'http://www.google.com'
         }
 
 
@@ -120,6 +206,7 @@ page_sequence = [
 InitialPage,
 FixationPage,
 DecisionPage,
+AfterPage,
 RestPage,
 FinishPage
 ]

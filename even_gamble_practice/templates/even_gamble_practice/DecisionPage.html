@@ -2,13 +2,13 @@
 {% load otree static %}
 
 {% block title %}
-Decision Page
+Practice Trials
 {% endblock %}
 
 {% block content %}
 
 <body onload="setStartTime()">
-  <br><br>
+  <!-- <br><br> -->
 
   <section>
     <article class="box_left" id="option_left">
@@ -57,6 +57,13 @@ Decision Page
   <!-- This is just to push away the debug table, should be commented off in actual deploy -->
   <!-- <div style="height: 600px;">
   </div> -->
+
+  <div style="font-size: 20px;">
+    <br>
+    <p>In this trial, you need to decide whether to accept a gamble with 50 percent chance of winning {{gain_txt}} points and 50 percent chance of losing {{loss_txt}} points.<br>– You can press the Up Arrow to accept the gamble, a green circle <font color = 'LawnGreen'><b>O</b></font> will appear to confirm the acceptence.<br>– You can press the Down Arrow to reject the gamble, a red cross <font color = 'red'><b>X</b></font> will appear to confirm the rejection.</p>
+
+    <p>[This instruction will not be shown in the actual trials]</p>
+  </div>
 
 </body>
 
@@ -135,7 +142,7 @@ Decision Page
   article {
     padding: 20px;
     vertical-align: middle;
-    height: 450px;
+    height: 380px;
     background-color: black;
 
     /* the transparent border is not necessary in the current study */

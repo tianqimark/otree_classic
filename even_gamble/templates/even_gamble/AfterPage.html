@@ -7,7 +7,7 @@ Decision Page
 
 {% block content %}
 
-<body onload="setStartTime()">
+<body>
   <br><br>
 
   <section>
@@ -26,15 +26,16 @@ Decision Page
     </article>
 
     <article class="box_middle">
-
+      {% if accept == 1 %}
       <div class="accept_div" id="accept_div">
         <p class = "accept_txt"> O </p>
       </div>
-
+      {% else %}
       <div class="reject_div" id="reject_div">
         <p class = "reject_txt"> X </p>
         <!-- <p class = "reject_txt"> &#x2715; </p> -->
       </div>
+      {% endif %}
 
     </article>
 
@@ -63,51 +64,9 @@ Decision Page
 <!-- <br><br>
 <center class="instruction">Press Up Arrow to accept the gamble. Press Down Arrow to reject the gamble.</center> -->
 
-<input type="hidden" name="accept" id="id_accept" value='nothing'>
-<input type="hidden" name="jsdectime_start" id="id_jsdectime_start" value=0>
-<input type="hidden" name="jsdectime_end" id="id_jsdectime_end" value=0>
-
 
 {% endblock %}
 
-{% block scripts %}
-
-<script>
-  // record the starting time
-  function setStartTime() {
-    var d = new Date();
-    document.getElementById('id_jsdectime_start').value = d.getTime();
-  }
-
-  // record choice and end time, show confirmation sign and submit the form
-  document.addEventListener('keydown', function(event) {
-    var d = new Date();
-
-    if(event.keyCode === 38) {
-      document.getElementById('id_accept').value = 1;
-      document.getElementById('id_jsdectime_end').value = d.getTime();
-
-      var x = document.getElementById("accept_div");
-      x.style.display = "block";
-
-      document.getElementById('form').submit();
-    }
-
-    if(event.keyCode === 40) {
-      document.getElementById('id_accept').value = 0;
-      document.getElementById('id_jsdectime_end').value = d.getTime();
-
-      var x = document.getElementById("reject_div");
-      x.style.display = "block";
-
-      document.getElementById('form').submit();
-    }
-
-  });
-
-</script>
-
-{% endblock %}
 
 {% block styles %}
 <style type="text/css">
@@ -178,14 +137,14 @@ Decision Page
     text-align: center;
     margin: 0 auto;
 
-    display: none;
+    /* display: none; */
   }
 
   .reject_div {
     text-align: center;
     margin: 0 auto;
 
-    display: none;
+    /* display: none; */
   }
 
   .gamble_txt {
@@ -217,6 +176,10 @@ Decision Page
     color: darkgray;
     font-weight: normal;
     font-size: 20px;
+  }
+
+  .otree-timer {
+    display: none;
   }
 
 </style>

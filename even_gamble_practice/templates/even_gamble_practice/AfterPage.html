@@ -2,13 +2,13 @@
 {% load otree static %}
 
 {% block title %}
-Decision Page
+Practice Trials
 {% endblock %}
 
 {% block content %}
 
-<body onload="setStartTime()">
-  <br><br>
+<body>
+  <!-- <br><br> -->
 
   <section>
     <article class="box_left" id="option_left">
@@ -26,15 +26,16 @@ Decision Page
     </article>
 
     <article class="box_middle">
-
+      {% if accept == 1 %}
       <div class="accept_div" id="accept_div">
         <p class = "accept_txt"> O </p>
       </div>
-
+      {% else %}
       <div class="reject_div" id="reject_div">
         <p class = "reject_txt"> X </p>
         <!-- <p class = "reject_txt"> &#x2715; </p> -->
       </div>
+      {% endif %}
 
     </article>
 
@@ -58,56 +59,21 @@ Decision Page
   <!-- <div style="height: 600px;">
   </div> -->
 
+  <div style="font-size: 20px;">
+    <br>
+    <p>In this trial, you need to decide whether to accept a gamble with 50 percent chance of winning {{gain_txt}} points and 50 percent chance of losing {{loss_txt}} points.<br>– You can press the Up Arrow to accept the gamble, a green circle <font color = 'LawnGreen'><b>O</b></font> will appear to confirm the acceptence.<br>– You can press the Down Arrow to reject the gamble, a red cross <font color = 'red'><b>X</b></font> will appear to confirm the rejection.</p>
+
+    <p>[This instruction will not be shown in the actual trials]</p>
+  </div>
+
 </body>
 
 <!-- <br><br>
 <center class="instruction">Press Up Arrow to accept the gamble. Press Down Arrow to reject the gamble.</center> -->
 
-<input type="hidden" name="accept" id="id_accept" value='nothing'>
-<input type="hidden" name="jsdectime_start" id="id_jsdectime_start" value=0>
-<input type="hidden" name="jsdectime_end" id="id_jsdectime_end" value=0>
-
 
 {% endblock %}
 
-{% block scripts %}
-
-<script>
-  // record the starting time
-  function setStartTime() {
-    var d = new Date();
-    document.getElementById('id_jsdectime_start').value = d.getTime();
-  }
-
-  // record choice and end time, show confirmation sign and submit the form
-  document.addEventListener('keydown', function(event) {
-    var d = new Date();
-
-    if(event.keyCode === 38) {
-      document.getElementById('id_accept').value = 1;
-      document.getElementById('id_jsdectime_end').value = d.getTime();
-
-      var x = document.getElementById("accept_div");
-      x.style.display = "block";
-
-      document.getElementById('form').submit();
-    }
-
-    if(event.keyCode === 40) {
-      document.getElementById('id_accept').value = 0;
-      document.getElementById('id_jsdectime_end').value = d.getTime();
-
-      var x = document.getElementById("reject_div");
-      x.style.display = "block";
-
-      document.getElementById('form').submit();
-    }
-
-  });
-
-</script>
-
-{% endblock %}
 
 {% block styles %}
 <style type="text/css">
@@ -135,7 +101,7 @@ Decision Page
   article {
     padding: 20px;
     vertical-align: middle;
-    height: 450px;
+    height: 380px;
     background-color: black;
 
     /* the transparent border is not necessary in the current study */
@@ -178,14 +144,14 @@ Decision Page
     text-align: center;
     margin: 0 auto;
 
-    display: none;
+    /* display: none; */
   }
 
   .reject_div {
     text-align: center;
     margin: 0 auto;
 
-    display: none;
+    /* display: none; */
   }
 
   .gamble_txt {
@@ -217,6 +183,10 @@ Decision Page
     color: darkgray;
     font-weight: normal;
     font-size: 20px;
+  }
+
+  .otree-timer {
+    display: none;
   }
 
 </style>

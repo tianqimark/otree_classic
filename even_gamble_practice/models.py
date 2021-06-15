@@ -8,7 +8,11 @@ from otree.api import (
     Currency as c,
     currency_range,
 )
+from timeit import default_timer as timer
 
+import numpy as np
+import pandas as pd
+import time
 
 author = 'Your name here'
 
@@ -16,11 +20,15 @@ doc = """
 Your app description
 """
 
+def set_time():
+    time_now = timer()
+    return time_now
+
 
 class Constants(BaseConstants):
     name_in_url = 'even_gamble_practice'
     players_per_group = None
-    num_rounds = 1
+    num_rounds = 10
 
 
 class Subsession(BaseSubsession):
@@ -99,3 +107,23 @@ class Player(BasePlayer):
     def cq2_3_error_message(self, value):
         if value != 1:
             return "Your answer to the question 3 is wrong. In case of wining, the reward will be added to your intial fund."
+
+    ### Variables for practice trials
+    # decision time collected by JavaScript method
+    jsdectime_start = models.FloatField()
+    jsdectime_end = models.FloatField()
+    jsdectime = models.FloatField()
+    # decision time collected by Python method
+    pydectime = models.FloatField()
+
+    # Time taken during the rest round
+    pyresttime = models.FloatField()
+
+    # Information about the trial
+    gain = models.FloatField()
+    loss = models.FloatField()
+    # display = 1: gain shown on the left
+    display = models.IntegerField()
+
+    # Whether the gamble is accepted: 1 = yes, 0 = no
+    accept = models.IntegerField()
