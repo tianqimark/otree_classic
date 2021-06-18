@@ -50,9 +50,9 @@ class Player(BasePlayer):
         choices = [[1,'40 points'],[2, '25 points']], widget=widgets.RadioSelect())
 
     cq1_3 = models.PositiveIntegerField(
-        choices = [[1,'Wining: 25 percent; Losing: 75 percent'],
-                   [2,'Wining: 40 percent; Losing: 60 percent'],
-                   [3,'Wining: 50 percent; Losing: 50 percent']], widget=widgets.RadioSelect())
+        choices = [[1,'Winning: 25 percent; Losing: 75 percent'],
+                   [2,'Winning: 40 percent; Losing: 60 percent'],
+                   [3,'Winning: 50 percent; Losing: 50 percent']], widget=widgets.RadioSelect())
 
     cq1_4 = models.PositiveIntegerField(
         choices = [[1,'Pressing the Up Arrow key (↑)'],
@@ -106,7 +106,7 @@ class Player(BasePlayer):
 
     def cq2_3_error_message(self, value):
         if value != 1:
-            return "Your answer to the question 3 is wrong. In case of wining, the reward will be added to your intial fund."
+            return "Your answer to the question 3 is wrong. In case of winning, the reward will be added to your intial fund."
 
     ### Variables for practice trials
     # decision time collected by JavaScript method
