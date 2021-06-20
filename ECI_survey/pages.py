@@ -2,6 +2,7 @@ from otree.api import Currency as c, currency_range
 # from . import models
 from ._builtin import Page, WaitPage
 from .models import Constants
+import numpy as np
 
 
 class Introduction(Page):
@@ -185,3 +186,18 @@ CRT6page,
 CRT7page,
 End
 ]
+
+
+
+# page_sequence = [
+# Introduction,
+# PANASpage,
+# CRT_seq[0],
+# CRT_seq[1],
+# CRT_seq[2],
+# CRT_seq[3],
+# CRT_seq[4],
+# CRT_seq[5],
+# CRT_seq[6],
+# End
+# ]
