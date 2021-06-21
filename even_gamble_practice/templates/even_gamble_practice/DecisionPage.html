@@ -88,12 +88,17 @@ Practice Trials
   }
 
   // record choice and end time, show confirmation sign and submit the form
+  var down = false;
   document.addEventListener('keydown', function(event) {
+
     var d = new Date();
 
     if(event.keyCode === 38) {
       document.getElementById('id_accept').value = 1;
       document.getElementById('id_jsdectime_end').value = d.getTime();
+
+      if(down) return;
+      down = true;
 
       var x = document.getElementById("accept_div");
       x.style.display = "block";
@@ -105,13 +110,16 @@ Practice Trials
       document.getElementById('id_accept').value = 0;
       document.getElementById('id_jsdectime_end').value = d.getTime();
 
+      if(down) return;
+      down = true;
+
       var x = document.getElementById("reject_div");
       x.style.display = "block";
 
       document.getElementById('form').submit();
     }
 
-  });
+  }, false);
 
 </script>
 
