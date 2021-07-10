@@ -50,8 +50,8 @@ def gamble_generator(start, end, seed):
 class Constants(BaseConstants):
     name_in_url = 'even_gamble'
     players_per_group = None
-    num_rounds = 50 # Activate this line in development
-    # num_rounds = 200 # Activate this line when launching the actual experiment
+    # num_rounds = 50 # Activate this line in development
+    num_rounds = 200 # Activate this line when launching the actual experiment
 
 
 class Subsession(BaseSubsession):
@@ -90,9 +90,8 @@ class Player(BasePlayer):
     pay_pound = models.FloatField()
 
 
-    # To collect feedback from pilot
-
-    feedback_p1 = models.LongStringField(blank=True)
-    feedback_p2 = models.LongStringField(blank=True)
-    feedback_p3 = models.LongStringField(blank=True)
-    feedback_general = models.LongStringField(blank=True)
+    # # To collect feedback from pilot
+    # feedback_p1 = models.LongStringField(blank=True)
+    # feedback_p2 = models.LongStringField(blank=True)
+    # feedback_p3 = models.LongStringField(blank=True)
+    # feedback_general = models.LongStringField(blank=True)

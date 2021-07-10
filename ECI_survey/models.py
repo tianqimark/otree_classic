@@ -41,6 +41,8 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
 
+    prolific_code = models.CharField()
+
     ### PANAS surney
     # test scores ranges from 1-5
 

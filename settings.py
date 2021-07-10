@@ -7,6 +7,7 @@ SESSION_CONFIGS = [
         display_name = 'Emotional and Cognitive Ability Survey',
         num_demo_participants = 5,
         app_sequence = ['ECI_survey', 'even_gamble_practice', 'even_gamble'],
+        gender = 'unspecified',
         prolificurl = 'http://www.google.com'
     ),
 

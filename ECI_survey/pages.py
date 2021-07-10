@@ -14,6 +14,9 @@ import numpy as np
 # register_adapter(np.float64, addapt_numpy_float64)
 # register_adapter(np.int64, addapt_numpy_int64)
 
+class Consent(Page):
+    form_model = 'player'
+    form_fields = ['prolific_code']
 
 class Introduction(Page):
     pass
@@ -185,6 +188,7 @@ class End(Page):
 CRT_seq = [CRT1page, CRT2page, CRT3page, CRT4page, CRT5page, CRT6page, CRT7page]
 
 page_sequence = [
+Consent,
 Introduction,
 PANASpage,
 CRT1page,
@@ -198,8 +202,9 @@ End
 ]
 
 
-
+#
 # page_sequence = [
+# Consent,
 # Introduction,
 # PANASpage,
 # CRT_seq[0],

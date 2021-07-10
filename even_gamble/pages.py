@@ -39,7 +39,7 @@ class DecisionPage(Page):
 
         # In the actual experiment, start = 1 and end = 10
         start = 1
-        end = 5
+        end = 10
         # seed = 666888
         seed = self.participant.vars['seed2']
 
@@ -96,8 +96,8 @@ class AfterPage(Page):
             pass
 
 # Specify information about the rest page:
-rest_round = [25] # for testing during development
-# rest_round = [50, 100, 150] # In actual experiment rest after trial 50, 100 and 150
+# rest_round = [25] # for testing during development
+rest_round = [50, 100, 150] # In actual experiment rest after trial 50, 100 and 150
 
 rest_limit = 300 # seconds
 
@@ -212,13 +212,13 @@ class FinishPage(Page):
             # 'prolificurl': 'http://www.google.com'
         }
 
-class FeedbackPage(Page):
-
-    form_model = 'player'
-    form_fields = ['feedback_p1', 'feedback_p2', 'feedback_p3', 'feedback_general']
-
-    def is_displayed(self):
-        return self.round_number == Constants.num_rounds
+# class FeedbackPage(Page):
+#
+#     form_model = 'player'
+#     form_fields = ['feedback_p1', 'feedback_p2', 'feedback_p3', 'feedback_general']
+#
+#     def is_displayed(self):
+#         return self.round_number == Constants.num_rounds
 
 
 page_sequence = [
@@ -227,6 +227,5 @@ FixationPage,
 DecisionPage,
 AfterPage,
 RestPage,
-FinishPage,
-FeedbackPage
+FinishPage
 ]
