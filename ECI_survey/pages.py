@@ -22,6 +22,26 @@ class Introduction(Page):
     pass
 
 
+class Mask(Page):
+    form_model = 'player'
+    form_fields = ['MU1', 'MU2', 'MU3', 'MU4', 'MU5', 'MU6',
+                   'dt_start', 'dt_end']
+
+    def before_next_page(self):
+        self.player.MUF_score = self.player.MU3 + self.player.MU4 + self.player.MU5 + self.player.MU6
+
+        self.player.dt_mask = (self.player.dt_end - self.player.dt_start) / 1000
+
+
+class Remanufac(Page):
+    form_model = 'player'
+    form_fields = ['dt_start', 'dt_end']
+
+    def before_next_page(self):
+
+        self.player.dt_remanufac = (self.player.dt_end - self.player.dt_start) / 1000
+
+
 class PANASpage(Page):
     form_model = 'player'
     form_fields = ['PA1', 'PA2', 'PA3', 'PA4', 'PA5',
@@ -190,6 +210,8 @@ CRT_seq = [CRT1page, CRT2page, CRT3page, CRT4page, CRT5page, CRT6page, CRT7page]
 page_sequence = [
 Consent,
 Introduction,
+Mask,
+Remanufac,
 PANASpage,
 CRT1page,
 CRT2page,
@@ -206,6 +228,8 @@ End
 # page_sequence = [
 # Consent,
 # Introduction,
+# Mask,
+# Remanufac,
 # PANASpage,
 # CRT_seq[0],
 # CRT_seq[1],

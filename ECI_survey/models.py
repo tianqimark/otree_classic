@@ -12,7 +12,7 @@ from otree.api import (
 import numpy as np
 import time
 
-author = 'Your name here'
+author = 'Tianqi and Ilkka'
 
 doc = """
 Your app description
@@ -43,8 +43,38 @@ class Player(BasePlayer):
 
     prolific_code = models.CharField()
 
-    ### PANAS surney
-    # test scores ranges from 1-5
+    ### Remanufaturing survey
+    # test score ranges from ...
+    """ Please specify variables for the Remanufaturing survey here """
+
+
+
+    ### Mask-usage survey
+    # Musk Usage Frequency (MUF), test score ranges from 4-20
+    MUF_score = models.IntegerField(initial=0)
+
+    MU1 = models.IntegerField(
+        choices = [[1, 'Yes (at least one dose)'], [0,'No']], widget=widgets.RadioSelect()
+        )
+    MU2 = models.PositiveIntegerField(
+        choices = [[1,'Not At All Effective'],[2, 'Slightly Effective'],[3,'Moderately Effective'],[4,'Very Effective'],[5,'Extremely Effective']], widget=widgets.RadioSelect()
+        )
+    MU3 = models.PositiveIntegerField(
+        choices = [[1,'Very Unlikely'],[2, 'Unlikely'],[3,'Neutral'],[4,'Likely'],[5,'Very Likely']], widget=widgets.RadioSelect()
+        )
+    MU4 = models.PositiveIntegerField(
+        choices = [[1,'Very Unlikely'],[2, 'Unlikely'],[3,'Neutral'],[4,'Likely'],[5,'Very Likely']], widget=widgets.RadioSelect()
+        )
+    MU5 = models.PositiveIntegerField(
+        choices = [[1,'Very Unlikely'],[2, 'Unlikely'],[3,'Neutral'],[4,'Likely'],[5,'Very Likely']], widget=widgets.RadioSelect()
+        )
+    MU6 = models.PositiveIntegerField(
+        choices = [[1,'Very Unlikely'],[2, 'Unlikely'],[3,'Neutral'],[4,'Likely'],[5,'Very Likely']], widget=widgets.RadioSelect()
+        )
+
+
+    ### PANAS survey
+    # test scores ranges from 5-25
 
     PA_score = models.IntegerField(initial=0)
     NA_score = models.IntegerField(initial=0)
@@ -146,6 +176,8 @@ class Player(BasePlayer):
     dt_end = models.FloatField()
     # the two timers above are for recording the start and end of all other RT measurements.
 
+    dt_mask = models.FloatField()
+    dt_remanufac = models.FloatField()
     dt_panas = models.FloatField()
 
     dt_crt1 = models.FloatField()
