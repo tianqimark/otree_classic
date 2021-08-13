@@ -3,6 +3,7 @@ from otree.api import Currency as c, currency_range
 from ._builtin import Page, WaitPage
 from .models import Constants
 import numpy as np
+import random
 
 # # The import code below does not work here becasue psycopg2 is not istalled,
 # # However these codes are necessary to ensure the program to run on servers.
@@ -24,6 +25,7 @@ class Introduction(Page):
 
 class Mask(Page):
     form_model = 'player'
+
     form_fields = ['MU1', 'MU2', 'MU3', 'MU4', 'MU5', 'MU6',
                    'dt_start', 'dt_end']
 
@@ -35,10 +37,15 @@ class Mask(Page):
 
 class Remanufac(Page):
     form_model = 'player'
-    form_fields = ['dt_start', 'dt_end']
+    form_fields = ['RM_likelytobuy', 'WTP_iPhone',
+                   'RM_reliable', 'RM_fail', 'RM_returned', 'RM_problems', 'RM_cosmetic', 'RM_scratches', 'RM_worn', 'dt_start', 'dt_end']
+
+
 
     def before_next_page(self):
 
+        self.player.RM_funcscore = self.player.RM_reliable + self.player.RM_fail + self.player.RM_returned + self.player.RM_problems
+        self.player.RM_cosmeticscore = self.player.RM_cosmetic + self.player.RM_scratches + self.player.RM_worn
         self.player.dt_remanufac = (self.player.dt_end - self.player.dt_start) / 1000
 
 

@@ -11,6 +11,7 @@ from otree.api import (
 
 import numpy as np
 import time
+import random
 
 author = 'Tianqi and Ilkka'
 
@@ -47,29 +48,70 @@ class Player(BasePlayer):
     # test score ranges from ...
     """ Please specify variables for the Remanufaturing survey here """
 
+    # How likely are you to consider buying the remanufactured iPhone 12 described above on a scale from very unlikely (1) to very likely (7)?
+    RM_likelytobuy = models.IntegerField(
+        choices=[[1, '1 = Very Unlikely'], [2, '2'], [3, '3'], [4, '4 = Neutral'], [5, '5'], [6, '6'], [7, '7 = Very Likely']], widget=widgets.RadioSelect()
+    )
+
+    # WTP slider for iPhone 12
+    WTP_iPhone = models.FloatField() #  SLIDER???
+
+    # The remanufactured product will be less reliable than a comparable new product
+    RM_reliable = models.IntegerField(
+        choices=[[1, '1 = Very Unlikely'], [2, '2'], [3, '3'], [4, '4 = Neutral'], [5, '5'], [6, '6'], [7, '7 = Very Likely']], widget=widgets.RadioSelect()
+    )
+    # The remanufactured product will fail more often than a comparable new product
+    RM_fail = models.IntegerField(
+        choices=[[1, '1 = Very Unlikely'], [2, '2'], [3, '3'], [4, '4 = Neutral'], [5, '5'], [6, '6'], [7, '7 = Very Likely']], widget=widgets.RadioSelect()
+    )
+    # The remanufactured product is more likely to need to be returned than a comparable new product
+    RM_returned = models.IntegerField(
+        choices=[[1, '1 = Very Unlikely'], [2, '2'], [3, '3'], [4, '4 = Neutral'], [5, '5'], [6, '6'], [7, '7 = Very Likely']], widget=widgets.RadioSelect()
+    )
+    # The remanufactured product will cause me problems that a comparable new product would not cause
+    RM_problems = models.IntegerField(
+        choices=[[1, '1 = Very Unlikely'], [2, '2'], [3, '3'], [4, '4 = Neutral'], [5, '5'], [6, '6'], [7, '7 = Very Likely']], widget=widgets.RadioSelect()
+    )
+    # The remanufactured product will have cosmetic flaws
+    RM_cosmetic = models.IntegerField(
+        choices=[[1, '1 = Very Unlikely'], [2, '2'], [3, '3'], [4, '4 = Neutral'], [5, '5'], [6, '6'], [7, '7 = Very Likely']], widget=widgets.RadioSelect()
+    )
+    # The remanufactured product will have scratches on the screen or case
+    RM_scratches = models.IntegerField(
+        choices=[[1, '1 = Very Unlikely'], [2, '2'], [3, '3'], [4, '4 = Neutral'], [5, '5'], [6, '6'], [7, '7 = Very Likely']], widget=widgets.RadioSelect()
+    )
+    # The remanufactured product will look worn
+    RM_worn = models.IntegerField(
+        choices=[[1, '1 = Very Unlikely'], [2, '2'], [3, '3'], [4, '4 = Neutral'], [5, '5'], [6, '6'], [7, '7 = Very Likely']], widget=widgets.RadioSelect()
+    )
+
+    # functionality score as in Abbey et al. POM paper Table 1
+    RM_funcscore = models.IntegerField(initial=0)
+    # cosmetic score as in Abbey et al. POM paper Table 1
+    RM_cosmeticscore = models.IntegerField(initial=0)
 
 
     ### Mask-usage survey
-    # Musk Usage Frequency (MUF), test score ranges from 4-20
+    # Mask Usage Frequency (MUF), test score ranges from 4-20
     MUF_score = models.IntegerField(initial=0)
 
     MU1 = models.IntegerField(
         choices = [[1, 'Yes (at least one dose)'], [0,'No']], widget=widgets.RadioSelect()
         )
     MU2 = models.PositiveIntegerField(
-        choices = [[1,'Not At All Effective'],[2, 'Slightly Effective'],[3,'Moderately Effective'],[4,'Very Effective'],[5,'Extremely Effective']], widget=widgets.RadioSelect()
+        choices=[[1, '1 = Very Unlikely'], [2, '2'], [3, '3'], [4, '4 = Neutral'], [5, '5'], [6, '6'], [7, '7 = Very Likely']], widget=widgets.RadioSelect()
         )
     MU3 = models.PositiveIntegerField(
-        choices = [[1,'Very Unlikely'],[2, 'Unlikely'],[3,'Neutral'],[4,'Likely'],[5,'Very Likely']], widget=widgets.RadioSelect()
+        choices=[[1, '1 = Very Unlikely'], [2, '2'], [3, '3'], [4, '4 = Neutral'], [5, '5'], [6, '6'], [7, '7 = Very Likely']], widget=widgets.RadioSelect()
         )
     MU4 = models.PositiveIntegerField(
-        choices = [[1,'Very Unlikely'],[2, 'Unlikely'],[3,'Neutral'],[4,'Likely'],[5,'Very Likely']], widget=widgets.RadioSelect()
+        choices=[[1, '1 = Very Unlikely'], [2, '2'], [3, '3'], [4, '4 = Neutral'], [5, '5'], [6, '6'], [7, '7 = Very Likely']], widget=widgets.RadioSelect()
         )
     MU5 = models.PositiveIntegerField(
-        choices = [[1,'Very Unlikely'],[2, 'Unlikely'],[3,'Neutral'],[4,'Likely'],[5,'Very Likely']], widget=widgets.RadioSelect()
+        choices=[[1, '1 = Very Unlikely'], [2, '2'], [3, '3'], [4, '4 = Neutral'], [5, '5'], [6, '6'], [7, '7 = Very Likely']], widget=widgets.RadioSelect()
         )
     MU6 = models.PositiveIntegerField(
-        choices = [[1,'Very Unlikely'],[2, 'Unlikely'],[3,'Neutral'],[4,'Likely'],[5,'Very Likely']], widget=widgets.RadioSelect()
+        choices=[[1, '1 = Very Unlikely'], [2, '2'], [3, '3'], [4, '4 = Neutral'], [5, '5'], [6, '6'], [7, '7 = Very Likely']], widget=widgets.RadioSelect()
         )
 
 
