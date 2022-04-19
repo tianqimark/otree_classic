@@ -20,7 +20,7 @@ doc = """
 App with decision task, to come after elicitation task
 """
 
-def trial_generator(scaler, min_reward, min_risk, reward_lev, risk_lev, m_values, treatment):
+def trial_generator(scaler, min_reward, min_risk, reward_lev, risk_lev, m_values, treatment, rand_seed):
 
     rewards = []
     risks = []
@@ -77,7 +77,7 @@ def trial_generator(scaler, min_reward, min_risk, reward_lev, risk_lev, m_values
     columns = ['reward', 'risk', 'certainty', 'display']
     trial_table.columns = columns
 
-    np.random.seed(520)
+    np.random.seed(rand_seed)
     trial_table = trial_table.sample(frac=1).reset_index(drop=True)
 
     return trial_table
@@ -93,8 +93,8 @@ def set_time():
 class Constants(BaseConstants):
     name_in_url = 'cognitivenoise'
     players_per_group = None
-    num_rounds = 12
-    # num_rounds = 216
+    # num_rounds = 12
+    num_rounds = 216
     # num_rounds should be changed to 216 when deployed in experiment, also to change the rest_round in the page file.
 
     # instructions_template = 'cognitivenoise/Instructions.html'
@@ -102,13 +102,11 @@ class Constants(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-    pass
+    def creating_session(self):
+        if self.round_number == 1:
+             for p in self.get_players():
+                  p.participant.vars['seed3'] = np.random.randint(low = 1000, high = 10000000)
 
-    # def creating_session(self):
-    #     if self.round_number == 1:
-    #          for p in self.get_players():
-    #              t = 1000 * time.time() # current time in milliseconds
-    #              p.participant.vars['seed3'] = int(t) % 2**32
 
 class Group(BaseGroup):
     pass

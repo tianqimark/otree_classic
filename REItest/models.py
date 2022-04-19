@@ -18,8 +18,8 @@ doc = """
 Your app description
 """
 
-t = 1000 * time.time() # current time in milliseconds
-np.random.seed(int(t) % 2**32)
+# t = 1000 * time.time() # current time in milliseconds
+# np.random.seed(int(t) % 2**32)
 
 
 class Constants(BaseConstants):
@@ -32,8 +32,10 @@ class Subsession(BaseSubsession):
     def creating_session(self):
         if self.round_number == 1:
             for p in self.get_players():
-                t = 1000 * time.time() # current time in milliseconds
-                p.participant.vars['seed1'] = int(t) % 2**32
+                # t = 1000 * time.time() # current time in milliseconds
+                # p.participant.vars['seed1'] = int(t) % 2**32
+
+                p.participant.vars['seed1'] = np.random.randint(low = 1000, high = 10000000)
 
             self.session.vars['endowment'] = self.session.config['endowment']
             self.session.vars['exchange'] = self.session.config['exchange']

@@ -1,6 +1,6 @@
 from otree.api import Currency as c, currency_range
 from ._builtin import Page, WaitPage
-from .models import Constants, bigger, lottery_generator
+from .models import Constants, bigger, smaller, lottery_generator
 import numpy as np
 import pandas as pd
 import time
@@ -12,6 +12,7 @@ class Initial(Page):
 
     def vars_for_template(self):
 
+        ### use the session variable in final implementation
         # endowment = self.session.vars['endowment']
         # pound = endowment / self.session.vars['exchange']
         endowment = 25
@@ -53,11 +54,12 @@ class Initial(Page):
             'loss': '$' + str(loss),
         }
 
-    def before_next_page(self):
-
-        t = 1000 * time.time() # current time in milliseconds
-        self.participant.vars['seed2'] = int(t) % 2**32
-
+    # def before_next_page(self):
+    #
+    #     # t = 1000 * time.time() # current time in milliseconds
+    #     # self.participant.vars['seed2'] = int(t) % 2**32
+    #
+    #     p.participant.vars['seed2'] = np.random.randint(low = 1000, high = 10000000)
 
 class Check1(Page):
 
@@ -137,18 +139,16 @@ class Auction(Page):
 
     def vars_for_template(self):
 
-        # treatment = self.participant.vars['treatment']
-        treatment = np.random.choice(['A','E'])
-        # treatment = 'A'
-        # treatment = 'E'
-
         scaler = 2**0.5
         min_reward = 7.85
         min_risk = 41
         reward_lev = 4
         risk_lev = 3
 
-        lottery_table = lottery_generator(scaler, min_reward, min_risk, reward_lev, risk_lev, treatment)
+        treatment = self.participant.vars['treatment']
+        order = self.participant.vars['BDM_order']
+
+        lottery_table = lottery_generator(scaler, min_reward, min_risk, reward_lev, risk_lev, treatment, order)
 
         reward = lottery_table['reward'][self.round_number - 1]
         risk = lottery_table['risk'][self.round_number - 1]
@@ -161,17 +161,28 @@ class Auction(Page):
         risk_down = str(risk)
         risk_down_px = (risk / 100) * 300
 
-        # floor = 0
+        if self.participant.vars['BDM_order'] == 'bottom':
+            if self.round_number == 1:
+                floor = 0
+            elif reward == min_reward or reward == round(min_reward):
+                floor = self.player.in_round(self.round_number - 1).WTP
+            elif self.round_number % risk_lev == 1:
+                floor = self.player.in_round(self.round_number - risk_lev).WTP
+            else:
+                floor = bigger(self.player.in_round(self.round_number - 1).WTP, self.player.in_round(self.round_number - risk_lev).WTP)
+            ceiling = reward
 
-        if self.round_number == 1:
-            floor = 0
-        elif reward == min_reward or reward == round(min_reward):
-            floor = self.player.in_round(self.round_number - 1).WTP
-        elif self.round_number % risk_lev == 1:
-            floor = self.player.in_round(self.round_number - risk_lev).WTP
         else:
-            floor = bigger(self.player.in_round(self.round_number - 1).WTP, self.player.in_round(self.round_number - risk_lev).WTP)
-
+            max_reward = lottery_table['reward'].max()
+            if self.round_number == 1:
+                ceiling = max_reward
+            elif reward == max_reward:
+                ceiling = self.player.in_round(self.round_number - 1).WTP
+            elif self.round_number % risk_lev == 1:
+                ceiling = self.player.in_round(self.round_number - risk_lev).WTP
+            else:
+                ceiling = smaller(self.player.in_round(self.round_number - 1).WTP, self.player.in_round(self.round_number - risk_lev).WTP)
+            floor = 0
 
         return {
             'risk_up': risk_up,
@@ -185,7 +196,7 @@ class Auction(Page):
             'reward': '$' + str(reward),
 
             'floor': '$' + str(floor),
-            'ceiling': '$' + str(float(reward)),
+            'ceiling': '$' + str(float(ceiling)),
 
         }
 
@@ -194,6 +205,7 @@ class Auction(Page):
         self.player.jsdectime = (self.player.jsdectime_end - self.player.jsdectime_start) / 1000
 
         self.player.treatment = self.participant.vars['treatment']
+        self.player.BDM_order = self.participant.vars['BDM_order']
 
 
 class End(Page):

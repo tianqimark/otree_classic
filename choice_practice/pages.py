@@ -71,6 +71,7 @@ class DecisionPage(Page):
         # and the text inside them
         # can be programmed to change in every round using self.round_number in for-loop
 
+        # activate the line below in the actual deployment
         treatment = self.participant.vars['treatment']
         # treatment = np.random.choice(['A','E'])
         # treatment = 'A'

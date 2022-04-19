@@ -10,10 +10,10 @@ class InitialPage(Page):
     def is_displayed(self):
         return self.round_number == 1
 
-    def before_next_page(self):
-
-        t = 1000 * time.time() # current time in milliseconds
-        self.participant.vars['seed3'] = int(t) % 2**32
+    # def before_next_page(self):
+    #
+    #     t = 1000 * time.time() # current time in milliseconds
+    #     self.participant.vars['seed3'] = int(t) % 2**32
 
 class FixationPage(Page):
 
@@ -40,10 +40,10 @@ class DecisionPage(Page):
         # can be programmed to change in every round using self.round_number in for-loop
 
         # activate the line below in the actual deployment
-        # treatment = self.participant.vars['treatment']
+        treatment = self.participant.vars['treatment']
         # treatment = np.random.choice(['A','E'])
         # treatment = 'A'
-        treatment = 'E'
+        # treatment = 'E'
 
         scaler = 2**0.5
         min_reward = 7.85
@@ -51,8 +51,9 @@ class DecisionPage(Page):
         reward_lev = 4
         risk_lev = 3
         m_values = list(range(0,9))
+        rand_seed = self.participant.vars['seed3']
 
-        trial_table = trial_generator(scaler, min_reward, min_risk, reward_lev, risk_lev, m_values, treatment)
+        trial_table = trial_generator(scaler, min_reward, min_risk, reward_lev, risk_lev, m_values, treatment, rand_seed)
 
         reward = trial_table['reward'][self.round_number - 1]
         risk = trial_table['risk'][self.round_number - 1]
@@ -94,7 +95,7 @@ class DecisionPage(Page):
         self.player.jsdectime = (self.player.jsdectime_end - self.player.jsdectime_start) / 1000
 
         # activate the line below in the actual deployment
-        # self.player.treatment = self.participant.vars["treatment"]
+        self.player.treatment = self.participant.vars["treatment"]
 
         if self.player.choice == 'right' and self.player.display == 0:
             self.player.lottery = 1

@@ -19,7 +19,7 @@ doc = """
 Your app description
 """
 
-def lottery_generator(scaler, min_reward, min_risk, reward_lev, risk_lev, treatment):
+def lottery_generator(scaler, min_reward, min_risk, reward_lev, risk_lev, treatment, order):
 
     rewards = []
     risks = []
@@ -63,16 +63,12 @@ def lottery_generator(scaler, min_reward, min_risk, reward_lev, risk_lev, treatm
     columns = ['reward', 'risk']
     lottery_table.columns = columns
 
-    # lottery_table = lottery_table.sort_values(by=['reward'])
+    if order == 'top':
+        lottery_table = lottery_table.sort_values(by=['reward', 'risk'], ascending=False)
+
+    lottery_table.reset_index(drop = True, inplace = True)
 
     return lottery_table
-
-# The valus of these variables need to be kept same with those in the page.py
-scaler = 2**0.5
-min_reward = 7.85
-min_risk = 41
-reward_lev = 4
-risk_lev = 3
 
 
 def bigger(a, b):
@@ -80,6 +76,13 @@ def bigger(a, b):
         return a
     else:
         return b
+
+def smaller(a, b):
+    if a > b:
+        return b
+    else:
+        return a
+
 
 # def decimal_places(number):
 #     x = re.findall(r'\.\d*', str(number))
@@ -102,12 +105,25 @@ class Subsession(BaseSubsession):
             # The above should be set in the REI test, they are put here for the convenience of testing only.
 
             for p in self.get_players():
-                p.participant.vars['treatment'] = np.random.choice(['A','E'])
+
+                p.participant.vars['seed2'] = np.random.randint(low = 1000, high = 10000000)
+
+                """ treatment """
+                ### use the session variable in final implementation
+                p.participant.vars['treatment'] = self.session.config['treatment']
+
+                # p.participant.vars['treatment'] = np.random.choice(['A','E'])
                 # p.participant.vars['treatment'] = 'A'
                 # p.participant.vars['treatment'] = 'E'
 
-                # t = 1000 * time.time() # current time in milliseconds
-                # p.participant.vars['seed2'] = int(t) % 2**32
+                """ BDM order """
+                ### use the session variable in final implementation
+                p.participant.vars['BDM_order'] =  self.session.config['BDM_order']
+
+                # p.participant.vars['BDM_order'] = np.random.choice(['bottom','top'])
+                # p.participant.vars['BDM_order'] =  'bottom'
+                # p.participant.vars['BDM_order'] =  'top'
+
 
 
 class Group(BaseGroup):
@@ -116,6 +132,7 @@ class Group(BaseGroup):
 class Player(BasePlayer):
 
     treatment = models.StringField()
+    BDM_order = models.StringField()
 
     WTP = models.FloatField()
 
@@ -178,76 +195,49 @@ class Player(BasePlayer):
 
     def WTP_error_message(self, value):
 
-        treatment = self.participant.vars['treatment']
-        # treatment = random.choice(['A','E'])
-        # treatment = 'A'
-        # treatment = 'E'
+        # The valus of these variables need to be kept same with those in the page.py
+        scaler = 2**0.5
+        min_reward = 7.85
+        min_risk = 41
+        reward_lev = 4
+        risk_lev = 3
 
-        lottery_table = lottery_generator(scaler, min_reward, min_risk, reward_lev, risk_lev, treatment)
+        treatment = self.participant.vars['treatment']
+        order = self.participant.vars['BDM_order']
+
+        lottery_table = lottery_generator(scaler, min_reward, min_risk, reward_lev, risk_lev, treatment, order)
 
         # ceiling = lottery_table['reward'][self.round_number - 1]
 
         reward = lottery_table['reward'][self.round_number - 1]
         # risk = lottery_table['risk'][self.round_number - 1]
 
-        if self.round_number == 1:
-            floor = 0
-        elif reward == min_reward or reward == round(min_reward):
-            floor = self.in_round(self.round_number - 1).WTP
-        elif self.round_number % risk_lev == 1:
-            floor = self.in_round(self.round_number - risk_lev).WTP
+        if self.participant.vars['BDM_order'] == 'bottom':
+            if self.round_number == 1:
+                floor = 0
+            elif reward == min_reward or reward == round(min_reward):
+                floor = self.in_round(self.round_number - 1).WTP
+            elif self.round_number % risk_lev == 1:
+                floor = self.in_round(self.round_number - risk_lev).WTP
+            else:
+                floor = bigger(self.in_round(self.round_number - 1).WTP, self.in_round(self.round_number - risk_lev).WTP)
+            ceiling = reward
+
         else:
-            floor = bigger(self.in_round(self.round_number - 1).WTP, self.in_round(self.round_number - risk_lev).WTP)
+            max_reward = lottery_table['reward'].max()
+            if self.round_number == 1:
+                ceiling = max_reward
+            elif reward == max_reward:
+                ceiling = self.in_round(self.round_number - 1).WTP
+            elif self.round_number % risk_lev == 1:
+                ceiling = self.in_round(self.round_number - risk_lev).WTP
+            else:
+                ceiling = smaller(self.in_round(self.round_number - 1).WTP, self.in_round(self.round_number - risk_lev).WTP)
+            floor = 0
 
 
-        if value >= reward:
+        if value >= ceiling:
              return "your bid price is above the reasonable price range."
 
         if value <= floor:
              return "your bid price is below the reasonable price range."
-
-        # if decimal_places(value) > 2:
-        #     return "your specified price cannot have a unit smaller than $0.01."
-
-
-
-    # def WTP_max(self):
-    #
-    #     # ceiling = self.reward
-    #
-    #     treatment = self.participant.vars['treatment']
-    #     # treatment = random.choice(['A','E'])
-    #     # treatment = 'A'
-    #     # treatment = 'E'
-    #
-    #     lottery_table = lottery_generator(scaler, min_reward, min_risk, reward_lev, risk_lev, treatment)
-    #
-    #     ceiling = lottery_table['reward'][self.round_number - 1]
-    #
-    #     return ceiling
-    #
-    # def WTP_min(self):
-    #
-    #     treatment = self.participant.vars['treatment']
-    #     # treatment = random.choice(['A','E'])
-    #     # treatment = 'A'
-    #     # treatment = 'E'
-    #
-    #     lottery_table = lottery_generator(scaler, min_reward, min_risk, reward_lev, risk_lev, treatment)
-    #
-    #     reward = lottery_table['reward'][self.round_number - 1]
-    #     # risk = lottery_table['risk'][self.round_number - 1]
-    #
-    #     if self.round_number == 1:
-    #         floor = 0
-    #         return floor
-    #     elif reward == min_reward or reward == round(min_reward):
-    #         floor = self.in_round(self.round_number - 1).WTP
-    #         return floor
-    #     elif self.round_number % risk_lev == 1:
-    #         floor = self.in_round(self.round_number - risk_lev).WTP
-    #         return floor
-    #     else:
-    #         floor = bigger(self.in_round(self.round_number - 1).WTP, self.in_round(self.round_number - risk_lev).WTP)
-    #         return floor
-    #

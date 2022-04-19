@@ -30,17 +30,19 @@ SESSION_CONFIGS = [
     dict(
         name = 'REItest',
         display_name = 'CA Tests',
-        num_demo_participants = 1,
+        num_demo_participants = 5,
         app_sequence = ['REItest', 'BDMauction', 'choice_practice', 'cognitivenoise'],
         endowment = 25,
         exchange = 5,
+        treatment = "A",
+        BDM_order = "bottom",
         prolificurl = 'http://www.google.com',
     ),
 
     dict(
         name = 'BDMauction',
         display_name = 'Preference Elicitation in Cognitive Noise Study',
-        num_demo_participants = 1,
+        num_demo_participants = 5,
         # app_sequence = ['BDMauction', 'choice_practice', 'cognitivenoise'],
         app_sequence = ['BDMauction', 'cognitivenoise'],
     ),
@@ -48,14 +50,14 @@ SESSION_CONFIGS = [
     dict(
         name = 'choice_practice',
         display_name = 'Practice Session for the Binary Choices',
-        num_demo_participants = 1,
+        num_demo_participants = 5,
         app_sequence = ['choice_practice', 'cognitivenoise'],
     ),
 
     dict(
         name = 'cognitivenoise',
         display_name = 'Decision Task in Cognitive Noise Study',
-        num_demo_participants = 1,
+        num_demo_participants = 5,
         app_sequence = ['cognitivenoise'],
     )
 
