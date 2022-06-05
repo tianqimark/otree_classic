@@ -12,7 +12,7 @@ from otree.api import (
 import numpy as np
 import time
 
-author = 'Your name here'
+author = 'Tianqi and Ilkka'
 
 doc = """
 Your app description

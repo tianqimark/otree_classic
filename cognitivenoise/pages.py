@@ -46,7 +46,8 @@ class DecisionPage(Page):
         # treatment = 'E'
 
         scaler = 2**0.5
-        min_reward = 7.85
+        # min_reward = 7.85 # if treatment is applied
+        min_reward = 8 # if no treatment is implemented
         min_risk = 41
         reward_lev = 4
         risk_lev = 3

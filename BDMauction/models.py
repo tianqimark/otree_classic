@@ -13,7 +13,7 @@ import pandas as pd
 import re
 import time
 
-author = 'Your name here'
+author = 'Tianqi and Ilkka'
 
 doc = """
 Your app description
@@ -197,7 +197,8 @@ class Player(BasePlayer):
 
         # The valus of these variables need to be kept same with those in the page.py
         scaler = 2**0.5
-        min_reward = 7.85
+        # min_reward = 7.85 # if treatment is applied
+        min_reward = 8 # if no treatment is implemented
         min_risk = 41
         reward_lev = 4
         risk_lev = 3

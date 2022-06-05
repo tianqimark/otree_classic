@@ -13,7 +13,7 @@ import numpy as np
 import pandas as pd
 import time
 
-author = 'Your name here'
+author = 'Tianqi and Ilkka'
 
 doc = """
 Your app description

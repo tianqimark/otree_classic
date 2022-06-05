@@ -14,7 +14,7 @@ import numpy as np
 import pandas as pd
 import time
 
-author = 'Your name here'
+author = 'Tianqi and Ilkka'
 
 doc = """
 App with decision task, to come after elicitation task

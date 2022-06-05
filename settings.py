@@ -34,7 +34,7 @@ SESSION_CONFIGS = [
         app_sequence = ['REItest', 'BDMauction', 'choice_practice', 'cognitivenoise'],
         endowment = 25,
         exchange = 5,
-        treatment = "A",
+        treatment = "E",
         BDM_order = "bottom",
         prolificurl = 'http://www.google.com',
     ),
