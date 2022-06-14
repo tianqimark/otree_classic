@@ -21,7 +21,8 @@ Your app description
 
 def practice_generator(treatment):
 
-    rewards = [12.3, 19.7, 8.55, 6.35, 16.6, 23.4]
+    # rewards = [12.3, 19.7, 8.55, 6.35, 16.6, 23.4] # if treatments are applied
+    rewards = [12.3, 19.7, 8.55, 6.35, 16.6, 24.4] # if no treatment is used
     risks = [82, 58, 82, 41, 58, 41]
     certainty = [6.85, 15.67, 5.79, 1.36, 7.44, 14.11]
     display = [0, 1, 1, 1, 0, 1]
